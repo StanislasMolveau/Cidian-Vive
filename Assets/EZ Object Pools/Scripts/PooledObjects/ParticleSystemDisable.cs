@@ -24,8 +24,12 @@ public class ParticleSystemDisable : PooledObject
     {
         if (!Particles.IsAlive())
         {
-            transform.parent = ParentPool.transform;
+            //transform.parent = ParentPool.transform;
             gameObject.SetActive(false);
+        }
+        else
+        {
+
         }
     }
 }

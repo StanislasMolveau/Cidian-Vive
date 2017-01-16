@@ -54,9 +54,6 @@ public class GameParameters : MonoBehaviour
     [HideInInspector]
     private float SpawnTimer;
 
-
-    [HideInInspector]
-    public int nbrZombiesTuesTotal;
     private SpawnManager mSpawnManager;
     private GameObject Player;
     private List<Ennemy_Manager> mZombieList;
@@ -148,7 +145,6 @@ public class GameParameters : MonoBehaviour
         nEnnemyBoss = 0;
         Score = 0;
         SpawnDelay = Random.Range(0, 2f);
-        nbrZombiesTuesTotal = 0;
         PlayerHealth = 5;
         PlayerSpeed = 10f;
         GunDamage = 1;

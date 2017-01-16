@@ -5,7 +5,7 @@ public class Ennemy_Manager : Entite
 
     private int zombies_damage = 1;
     private Animator anim;
-    float timeToDestroy = 1.5f;
+    float timeToDestroy = 0.5f;
     public GameObject skin;
     private Transform myTransform;
     private int DeathpointValue = 100;
@@ -16,19 +16,20 @@ public class Ennemy_Manager : Entite
 
     void Update()
     {
-        if (dead == true)
-        {
+        //TEMPS AVANT MORT DU ZOMBIE
+        //if (dead == true)
+        //{
+        //    this.zombies_damage = 0;
+        //    rb = null;
+        //    timeToDestroy -= Time.deltaTime;
 
-            this.zombies_damage = 0;
-            rb = null;
-            timeToDestroy -= Time.deltaTime;
+        //    if (timeToDestroy <= 0.0f)
+        //    {
 
-            if (timeToDestroy <= 0.0f)
-            {
+        //        Destroy(gameObject);
+        //    }
 
-                Destroy(gameObject);
-            }
-        }
+        //}
     }
 
     void Start()
@@ -64,30 +65,17 @@ public class Ennemy_Manager : Entite
 
 
         //}
-        //int rdm = Random.Range(1, 3);
-        //switch (rdm)
-        //{
-        //    case 1:
-        //        anim.SetInteger("Die", 1);
-        //        anim.Play("LeftFall");
-        //        break;
-        //    case 2:
-        //        anim.SetInteger("Die", 2);
-        //        anim.Play("BackFall");
-        //        break;
-        //    case 3:
-        //        anim.SetInteger("Die", 3);
-        //        anim.Play("RightFall");
-        //        break;
-        //}
 
-        this.GetComponent<NavMeshAgent>().enabled = false;
+
+        GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GameParameters.Instance.AddPoints(DeathpointValue);
+        //this.GetComponent<BoxCollider>().enabled = false;
         GameParameters.Instance.RemoveFromCache(this);
         dead = true;
-        this.GetComponent<BoxCollider>().enabled = false;
         base.Die();
         
+        
+
     }
 
 
@@ -97,10 +85,10 @@ public class Ennemy_Manager : Entite
     {
         Vector3 dir = col.transform.position - transform.position;
 
-        if (col.gameObject.GetComponent<PlayerController>())
+        if (col.gameObject.GetComponent<DoorManager>())
         {
 
-            col.gameObject.GetComponent<PlayerController>().TakeDamage(zombies_damage, dir, 5f);
+            col.gameObject.GetComponent<DoorManager>().TakeDamage(zombies_damage);
 
         }
     }

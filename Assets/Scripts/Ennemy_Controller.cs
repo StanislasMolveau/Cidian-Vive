@@ -5,7 +5,7 @@ public class Ennemy_Controller : MonoBehaviour
 {
 
     public float z_speed;
-    NavMeshAgent nav;
+    UnityEngine.AI.NavMeshAgent nav;
     Transform player;
     GameObject zombie;
     Animator controler;
@@ -37,7 +37,7 @@ public class Ennemy_Controller : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        nav = GetComponent<NavMeshAgent>();
+        nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         //controler = skin.GetComponent<Animator>();
@@ -81,7 +81,7 @@ public class Ennemy_Controller : MonoBehaviour
             Vector3 dir = col.transform.position - transform.position;
             dir.y = -0.50f;
             int rdm = Random.Range(0, 2);
-            if (col.gameObject.GetComponent<PlayerController>())
+            if (col.gameObject.GetComponent<DoorManager>())
             {
                 StartCoroutine("Zombie_Attack");
 

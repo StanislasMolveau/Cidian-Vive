@@ -52,10 +52,7 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
 
-        if (GameParameters.Instance.nEnnemyRestants > 0)
-        {
-            Debug.Log("Encore " + GameParameters.Instance.nEnnemyRestants + " zombies à tuer");
-        }
+        
     }
 
     void Spawn()
@@ -71,9 +68,10 @@ public class SpawnManager : MonoBehaviour
                 if (GameParameters.Instance.nEnnemyBoss > 0)
                 {
                     GameParameters.Instance.CreateEnnemy(EnnemyBoss, SpawnPoints[SpawnPointIndex].position, SpawnPoints[SpawnPointIndex].rotation);
+                    GameParameters.Instance.nEnnemyInstancies++;
                     GameParameters.Instance.nEnnemyRestants--;
                 }
-                int type_Ennemy = Random.Range(0, 4); // POUR LES DIFFERENTS TYPE DE Ennemy_V1
+                int type_Ennemy = Random.Range(0, 4); // POUR LES DIFFERENTS TYPE DE Ennemy
 
                 switch (type_Ennemy)
                 {
@@ -107,7 +105,7 @@ public class SpawnManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameParameters.Instance.nEnnemyRestants <= 0)
+        if (GameParameters.Instance.nEnnemyInstancies <= 0 && GameParameters.Instance.nEnnemyRestants <= 0)
         {
 
             Debug.Log("EndOfLevel " + GameParameters.Instance.Level);
@@ -153,9 +151,9 @@ public class SpawnManager : MonoBehaviour
     public void SpawnUpgrade(Vector3 VarPos, Quaternion varRot)
     {
         initdc();
-        int ChoixUp = Random.Range(0, 8);//0-7;
+        int ChoixUp = Random.Range(0, 5);//0-4;
 
-        if (ChoixUp >= 5)
+        if (ChoixUp >= 3)
         {
             return;
         }

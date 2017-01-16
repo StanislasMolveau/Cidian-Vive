@@ -39,10 +39,12 @@ public class Entite : MonoBehaviour
 
     public virtual void Die()
     {
-
-        GameParameters.Instance.nbrZombiesTuesTotal++;
         GameParameters.Instance.nEnnemyInstancies--;
-        GameParameters.Instance.nEnnemyRestants--;
+        Debug.Log("Ennemy restants:" + GameParameters.Instance.nEnnemyRestants);
+        Debug.Log("Ennemy Instanciés :" + GameParameters.Instance.nEnnemyInstancies);
+        Destroy(gameObject);
+        
+       
 
     }
 
