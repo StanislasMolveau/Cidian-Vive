@@ -7,7 +7,6 @@ public class Ennemy_Manager : Entite
     private Animator anim;
     float timeToDestroy = 0.5f;
     public GameObject skin;
-    private Transform myTransform;
     private int DeathpointValue = 100;
     public Rigidbody rb;
     public int zombie_ID;
@@ -97,7 +96,6 @@ public class Ennemy_Manager : Entite
     {
 
         anim = skin.GetComponent<Animator>();
-        myTransform = transform;
     }
 
 
