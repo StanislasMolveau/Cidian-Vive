@@ -67,7 +67,7 @@ public class Ennemy_Manager : Entite
         }
 
 
-        GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+        GetComponent<NavMeshAgent>().enabled = false;
         GameParameters.Instance.AddPoints(DeathpointValue);
         //this.GetComponent<BoxCollider>().enabled = false;
         GameParameters.Instance.RemoveFromCache(this);
