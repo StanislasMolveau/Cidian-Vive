@@ -7,6 +7,7 @@ public class Ennemy_Manager : Entite
     private Animator anim;
     float timeToDestroy = 0.5f;
     public GameObject skin;
+    private Transform myTransform;
     private int DeathpointValue = 100;
     public Rigidbody rb;
     public int zombie_ID;
@@ -56,14 +57,14 @@ public class Ennemy_Manager : Entite
 
     public override void Die()
     {
-        //if (GameParameters.Instance.nEnnemyRestants == 1)
-        //{
+        if (GameParameters.Instance.nEnnemyRestants == 1)
+        {
 
-        //    Vector3 pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y + 1.7f, this.transform.localPosition.z);
-        //    GameParameters.Instance.SpawnBonus(pos, this.transform.rotation);
+            Vector3 pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y + 1.7f, this.transform.localPosition.z);
+            GameParameters.Instance.SpawnBonus(pos, this.transform.rotation);
+            Debug.Log("Spawning Bonus");
 
-
-        //}
+        }
 
 
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
@@ -96,6 +97,7 @@ public class Ennemy_Manager : Entite
     {
 
         anim = skin.GetComponent<Animator>();
+        myTransform = transform;
     }
 
 

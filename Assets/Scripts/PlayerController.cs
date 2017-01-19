@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         //Destroy(gameObject);
         //ANIM DE MORT
-        GameParameters.Instance.PlayerSpeed = 0;
+        //GameParameters.Instance.PlayerSpeed = 0;
         GameParameters.Instance.GunSpeed = 0;
     }
 

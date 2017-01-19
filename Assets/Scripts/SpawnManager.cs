@@ -3,32 +3,50 @@ using System.Collections;
 using System.Collections.Generic;
 public class SpawnManager : MonoBehaviour
 {
+
     public Transform[] SpawnPoints;
     public GameObject EnnemyBoss;
     public GameObject EnnemyV1;
     public GameObject EnnemyV2;
     public GameObject[] Bonus;
-    
+
+
 
     void StartLevel()
     {
+
         GameParameters.Instance.nEnnemyInstancies = 0;
         GameParameters.Instance.SetLevelParameters();
+
+
     }
 
     IEnumerator WaitForSpawn()
     {
+
         while (true)
         {
             if (GameParameters.Instance.nEnnemyRestants >= 0)
             {
+
                 if (GameParameters.Instance.nEnnemyInstancies <= 25)
                 {
+
+
                     yield return new WaitForSeconds(GameParameters.Instance.SpawnDelay);
                     Invoke("Spawn", GameParameters.Instance.SpawnDelay);
+
                 }
+
+
+
+
             }
+
+
+
         }
+
     }
 
     void Update()
@@ -39,15 +57,17 @@ public class SpawnManager : MonoBehaviour
 
     void Spawn()
     {
+
         if (GameParameters.Instance.nEnnemyRestants != 0)
         {
             if (GameParameters.Instance.nEnnemyInstancies <= 25)
             {
                 int SpawnPointIndex = Random.Range(0, SpawnPoints.Length);
-                
+
+              
                 if (GameParameters.Instance.nEnnemyBoss > 0)
                 {
-                    GameParameters.Instance.CreateEnnemy(EnnemyBoss, SpawnPoints[SpawnPointIndex].position, Quaternion.identity);
+                    GameParameters.Instance.CreateEnnemy(EnnemyBoss, SpawnPoints[SpawnPointIndex].position, SpawnPoints[SpawnPointIndex].rotation);
                     GameParameters.Instance.nEnnemyInstancies++;
                     GameParameters.Instance.nEnnemyRestants--;
                 }
@@ -59,16 +79,20 @@ public class SpawnManager : MonoBehaviour
                     case 2:
                     case 3:
                         {
-                            GameParameters.Instance.CreateEnnemy(EnnemyV1, SpawnPoints[SpawnPointIndex].position, Quaternion.identity);
+
+                            GameParameters.Instance.CreateEnnemy(EnnemyV1, SpawnPoints[SpawnPointIndex].position, SpawnPoints[SpawnPointIndex].rotation);
                             GameParameters.Instance.nEnnemyInstancies++;
                             GameParameters.Instance.nEnnemyRestants--;
+
+
                         }
                         break;
                     case 1:
                         {
-                            GameParameters.Instance.CreateEnnemy(EnnemyV2, SpawnPoints[SpawnPointIndex].position, Quaternion.identity);
+                            GameParameters.Instance.CreateEnnemy(EnnemyV2, SpawnPoints[SpawnPointIndex].position, SpawnPoints[SpawnPointIndex].rotation);
                             GameParameters.Instance.nEnnemyInstancies++;
                             GameParameters.Instance.nEnnemyRestants--;
+
                         }
                        break;
                 }
@@ -76,10 +100,14 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+
+
+
     void FixedUpdate()
     {
         if (GameParameters.Instance.nEnnemyInstancies <= 0 && GameParameters.Instance.nEnnemyRestants <= 0)
         {
+
             Debug.Log("EndOfLevel " + GameParameters.Instance.Level);
             Endlevel();
         }
@@ -88,6 +116,7 @@ public class SpawnManager : MonoBehaviour
 
     void Endlevel()
     {
+
         GameParameters.Instance.Level++;
 
         if (GameParameters.Instance.Level == 51)
@@ -95,6 +124,7 @@ public class SpawnManager : MonoBehaviour
             Application.LoadLevel("Credits");
         }
         StartLevel();
+        GameParameters.Instance.SetLevelText();
     }
 
 
@@ -112,7 +142,9 @@ public class SpawnManager : MonoBehaviour
         for (int i = 0; i <= Bonus.Length - 1; i++)
         {
             mUpgradeDic.Add(Bonus[i], 0);
+
         }
+
     }
 
     List<GameObject> temneedPlus = new List<GameObject>();
@@ -149,6 +181,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
+
         StartLevel();
         StartCoroutine(WaitForSpawn());
     }

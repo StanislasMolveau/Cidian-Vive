@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 public class GameParameters : MonoBehaviour
 {
     private static GameParameters instance;
@@ -29,6 +30,8 @@ public class GameParameters : MonoBehaviour
     [HideInInspector]
     public int nEnnemyInstancies;
     [HideInInspector]
+    public int nEnnemyTues;
+    [HideInInspector]
     public float SpawnDelay;
     [HideInInspector]
     public int Z_dmg;
@@ -37,27 +40,60 @@ public class GameParameters : MonoBehaviour
     [HideInInspector]
     public float Z_Speed;
 
+
+
     [HideInInspector]
     public int PlayerPrecision;
     [HideInInspector]
     public int PlayerHealth;
     [HideInInspector]
-    public float PlayerSpeed;
-    [HideInInspector]
     public float GunDamage;
     [HideInInspector]
     public int GunSpeed;
     [HideInInspector]
-    public static int Score;
-    [HideInInspector]
-    public static int money;
+    public int Score;
     [HideInInspector]
     private float SpawnTimer;
 
     private SpawnManager mSpawnManager;
-    private GameObject Player;
+    public GameObject Player;
     private List<Ennemy_Manager> mZombieList;
 
+    // Text
+    public TextMesh ScoreText;
+    public TextMesh KillsText;
+    public TextMesh LevelText;
+
+    void Start()
+    {
+
+        ScoreText = Player.GetComponent<PlayerManager>().ScoreText;
+        KillsText = Player.GetComponent<PlayerManager>().KillsText;
+        LevelText = Player.GetComponent<PlayerManager>().LevelText;
+        SetScore();
+        SetKillsText();
+        SetLevelText();
+        Transform tmpTransform = transform.Find("SpawnPlane");
+        if (tmpTransform == null)
+        {
+            return;
+        }
+
+        mSpawnManager = tmpTransform.GetComponent<SpawnManager>();
+        SetLevelParameters();
+        Level = 1;
+        nEnnemyBoss = 0;
+        Score = 0;
+        SpawnDelay = Random.Range(0, 2f);
+        PlayerHealth = 5;
+        GunDamage = 1;
+        GunSpeed = 500;
+        Z_dmg = 1;
+        Z_Health = 2;
+        Z_Speed = Random.Range(3.5f, 4.1f);
+        nEnnemyTues = 0;
+
+    }
 
     public void CreateEnnemy(GameObject vartype_Zombie, Vector3 varPos, Quaternion varRot)
     {
@@ -98,22 +134,23 @@ public class GameParameters : MonoBehaviour
     }
 
 
-    public int GetMoney()
+    public void SetScore()
     {
-        return money;
+        ScoreText.text  = "Score: " + GameParameters.Instance.Score;
+   
     }
 
-    public int SetMoney(int lessMoney)
+    public void SetKillsText()
     {
-        money = money - lessMoney;
-        return money;
+        KillsText.text = "Kills: " + GameParameters.Instance.nEnnemyTues;
     }
 
-    public int GetScore()
+    public void SetLevelText()
     {
-        return Score;
+        LevelText.text = "Level: " + GameParameters.Instance.Level;
     }
 
+ 
 
 
     public void SpawnBonus(Vector3 varPos, Quaternion varRot)
@@ -125,36 +162,12 @@ public class GameParameters : MonoBehaviour
     public void AddPoints(int pointValue)
     {
         Score += pointValue;
-        money += pointValue;
+        SetScore();
     }
 
 
 
-    void Start()
-    {
-
-        Transform tmpTransform = transform.Find("SpawnPlane");
-        if (tmpTransform == null)
-        {
-            return;
-        }
-
-        mSpawnManager = tmpTransform.GetComponent<SpawnManager>();
-        SetLevelParameters();
-        Level = 1;
-        nEnnemyBoss = 0;
-        Score = 0;
-        SpawnDelay = Random.Range(0, 2f);
-        PlayerHealth = 5;
-        PlayerSpeed = 10f;
-        GunDamage = 1;
-        GunSpeed = 500;
-        Z_dmg = 1;
-        Z_Health = 2;
-        Z_Speed = Random.Range(3.5f, 4.1f);
-
-
-    }
+    
 
     public int getHealth()
     {

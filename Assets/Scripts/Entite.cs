@@ -40,6 +40,8 @@ public class Entite : MonoBehaviour
     public virtual void Die()
     {
         GameParameters.Instance.nEnnemyInstancies--;
+        GameParameters.Instance.nEnnemyTues++;
+        GameParameters.Instance.SetKillsText();
         Debug.Log("Ennemy restants:" + GameParameters.Instance.nEnnemyRestants);
         Debug.Log("Ennemy Instanciés :" + GameParameters.Instance.nEnnemyInstancies);
         Destroy(gameObject);
